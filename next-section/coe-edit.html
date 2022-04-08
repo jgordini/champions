@@ -1,162 +1,607 @@
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
 
-	<style>
-.columns {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-}
+	html {
+		font-size: 10px !important;
+	}
 
-.column {
-  flex: 25%;
-}
+	body.linear [id=whitebox] img {
+		margin: 0;
+	}
+
+	body.linear [id=whitebox] :last-child {
+		margin-bottom: 0;
+	}
+
+	body.linear [id=whitebox] :first-child {
+		margin-top: auto;
+	}
+
+	.panel {
+		width: 300px;
+		height: 300px;
+		margin: auto;
+		position: relative;
+	}
+
+	.card {
+		width: 100%;
+		height: 100%;
+		-o-transition: all .5s;
+		-ms-transition: all .5s;
+		-moz-transition: all .5s;
+		-webkit-transition: all .5s;
+		transition: all .5s;
+		-webkit-backface-visibility: hidden;
+		-ms-backface-visibility: hidden;
+		-moz-backface-visibility: hidden;
+		backface-visibility: hidden;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+	}
+
+	.front {
+		z-index: 2;
+	}
+
+	.back {
+		z-index: 1;
+		-webkit-transform: rotateY(-180deg);
+		-ms-transform: rotateY(-180deg);
+		-moz-transform: rotateY(-180deg);
+		transform: rotateY(-180deg);
+	}
+
+	.panel:hover .front {
+		z-index: 1;
+		-webkit-transform: rotateY(180deg);
+		-ms-transform: rotateY(180deg);
+		-moz-transform: rotateY(180deg);
+		transform: rotateY(180deg);
+	}
+
+	.panel:hover .back {
+		z-index: 2;
+		-webkit-transform: rotateY(0deg);
+		-ms-transform: rotateY(0deg);
+		-moz-transform: rotateY(0deg);
+		transform: rotateY(0deg);
+	}
+
+	.mb_container {
+		position: relative;
+		display: flex;
+		justify-content: center;
+	}
+
+	.mb_container .mb_container--row {
+		padding: 1rem 0;
+		/*position: absolute;*/
+		/*left: 50%;*/
+		/*top: 0;*/
+		/*transform: translateX(-50%);*/
+		min-width: 160rem;
+		display: grid;
+		grid-template-columns: 1fr 36rem 1fr;
+		grid-gap: 1rem;
+	}
+
+	@media (max-width: 1024px) {
+		.mb_container .mb_container--row {
+			min-width: unset;
+			width: max-content;
+			grid-template-columns: var(--gridWidthOther) var(--gridWidthCenter) var(--gridWidthOther);
+			position: static;
+			transform: none;
+		}
+	}
+
+	@media (max-width: 800px) {
+		.mb_container .mb_container--row {
+			grid-gap: 0.5rem;
+		}
+	}
+
+	@media (max-width: 1024px) {
+		.mb_container .mb_container--row {
+			grid-gap: 0.5rem;
+			padding: 2rem
+		}
+	}
+
+	.mb_container .mb_right,
+	.mb_container .mb_left {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-gap: 1rem;
+	}
+
+	.mb_container .mb_left {
+		margin-top: 0 !important;
+	}
+
+	@media (max-width: 1024px) {
+
+		.mb_container .mb_right,
+		.mb_container .mb_left {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 800px) {
+
+		.mb_container .mb_right,
+		.mb_container .mb_left {
+			grid-gap: 1rem;
+		}
+	}
+
+	@media (max-width: 600px) {
+
+		.mb_container .mb_right,
+		.mb_container .mb_left {
+			grid-gap: 0.5rem;
+		}
+	}
+
+	.mb_center {
+		align-self: end;
+	}
+
+
+	.mb_container .mb_imgs img:not(:last-child) {
+		margin-bottom: 2rem;
+	}
+
+	@media (max-width: 800px) {
+		.mb_container .mb_imgs img:not(:last-child) {
+			margin-bottom: 2rem;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.mb_container .mb_imgs img:not(:last-child) {
+			margin-bottom: 1rem;
+		}
+	}
+
+	.mb_container .mb_description {
+		grid-column: 1 / -1;
+	}
+
+
+
+
+
+
+
+	/* images css */
+
+
+	.mb_container img {
+		width: 100%;
+		object-fit: cover;
+	}
+
+	.mb_container img:not(#main_image) {
+		border-radius: 0.6rem;
+	}
+
+	@media (max-width: 800px) {
+		.mb_container img:not(#main_image) {
+			border-radius: 0.6rem;
+		}
+	}
+
+	.mb_container .mb_imgs {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+	}
+
+	#main_image {
+		object-position: top;
+		/*margin-bottom: 56rem;*/
+	}
+
+	#onsmall {
+		display: none;
+	}
+
+	@media (max-width: 1024px) {
+		#onsmall {
+			display: inline-block;
+		}
+
+		.smallNone {
+			display: none !important
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.im_sm {
+			min-height: 210px;
+		}
+	}
+
+
+
+
+
+	/* text css */
+
+	.mb_description {
+		max-width: 28rem;
+		margin-left: auto;
+		margin-right: 4rem;
+		margin-top: 12rem !important;
+	}
+
+	@media (max-width: 1280px) {
+		.mb_description {
+			margin-right: 0;
+			max-width: 24rem;
+		}
+	}
+
+	@media (max-width: 1024px) {
+		.mb_description {
+			display: none
+		}
+	}
+
+	.mb_description .mb_heading {
+		font-size: 30px;
+		line-height: 40px;
+		letter-spacing: -0.5px;
+		font-weight: 600;
+		color: #555;
+		font-family: 'Open Sans', sans-serif;
+	}
+
+	.mb_description .mb_heading span {
+		font-size: 70%;
+		transform: translateY(-6px);
+		display: inline-block;
+	}
+
+	.mb_description .mb_text {
+		font-size: 16px;
+		line-height: 24px;
+		font-weight: 400;
+		color: #333;
+	}
+
+	.mb_outter {
+		max-width: 45rem;
+		margin: 0 auto 6rem;
+		text-align: center;
+		padding: 0 1rem;
+		display: none;
+	}
+
+	@media (max-width: 1024px) {
+		.mb_outter {
+			display: block;
+		}
+	}
+
+	.mb_outter-h {
+		font-size: 22px;
+		line-height: 26px;
+		font-weight: 600;
+		font-family: 'Open Sans', sans-serif;
+		color: #262626;
+	}
+
+	.mb_outter-p {
+		font-size: 16px;
+		line-height: 24px;
+		margin-top: 12px;
+	}
+
+	.container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
+		width: 100%;
+		position: relative;
+	}
+
+	.reveal img {
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
+		transform-origin: left;
+	}
+
+	.reveal {
+		visibility: hidden;
+		position: relative;
+		width: 80%;
+		height: 80%;
+		max-width: 500px;
+		overflow: hidden;
+	}
 </style>
-
-        <link rel="stylesheet" href="./style.css" />
-        <title>Document</title>
-    </head>
-    <body>
-        <div id="root">
-            <div class="mb_container">
-                <div class="mb_container--row">
-                    <div class="mb_left">
-                        <div class="mb_description" id="text">
-                            <p class="mb_heading">
-                                Champions of Excellence
-                            </p>
-                            <p class="mb_text">UAB IT employees are expected to act as champions of excellence in their own work, while also using technology and innovation to help empower excellence among UAB faculty, staff, students and researchers.</p>
-                        </div>
-                        <div class="mb_imgs smallNone">
-                            <img class="im_lg" src="./images/Images/slides/1.jpg" />
-                            <img class="im_sm" src="./images/Images/slides/2.jpg" />
-                        </div>
-                        <div class="mb_imgs">
-                            <img
-                                class="im_md"
-                                id="onsmall"
-                                src="./images/Images/slides/1.jpg"
-                            />
-                            <img class="im_lg" src="./images/Images/slides/3.jpg" />
-                        </div>
-                    </div>
-                    <div class="mb_center">
-                        <div class="mb_imgs">
-                            <img
-                                class="im_lg"
-                                id="main_image"
-                                src="./images/Images/slides/4.jpg"
-                            />
-                            <img class="im_sm" src="./images/Images/slides/5.jpg" />
-                        </div>
-                    </div>
-                    <div class="mb_right">
-                        <div class="mb_imgs">
-                            <img class="im_md" src="./images/Images/slides/6.jpgg" />
-                            <img class="im_lg" src="./images/Images/slides/7.jpg" />
-                        </div>
-                        <div class="mb_imgs smallNone">
-                            <img class="im_md" src="./images/Images/slides/8.jpg" />
-                            <img class="im_sm" src="./images/Images/slides/9.jpg" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="mb_outter">
-            <p class="mb_outter-h">
-                Champions of Excellence
-            </p>
-            <p class="mb_outter-p">UAB IT employees are expected to act as champions of excellence in their own work, while also using technology and innovation to help empower excellence among UAB faculty, staff, students and researchers.</p>
-        </div>
-
-        <div
-            class="after"
-            style="
-                font-size: 4rem;
-                display: grid;
-                place-items: center;
-                background-color: crimson;
-                color: white;
-                min-height: 100vh;
-            "
-        >
-	<div class="columns">
-	<div class="column">
-	  ///  Column 1: Put any relevant content here   ///
+<div id="root">
+	<div class="mb_container">
+		<div class="mb_container--row">
+			<div class="mb_left">
+				<div id="text" class="mb_description">
+					<p class="mb_heading"><img src="images/Images/Champions-of-excellence/COE_text_logo.png" alt="Champions of Excellence Logo" width="583px" height="189px" /></p>
+					<h3 class="mb_text">UAB IT employees are expected to act as champions of excellence in their own work, while also using technology and innovation to help empower excellence among UAB faculty, staff, students and researchers.</h3>
+				</div>
+				<div class="mb_imgs smallNone"><img src="./images/Images/slides/3.jpg" alt="" class="im_lg" /> <img src="./images/Images/slides/2.jpg" alt="" class="im_sm" /></div>
+				<div class="mb_imgs"><img src="./images/Images/slides/1.jpg" alt="" id="onsmall" class="im_md" /> <img src="./images/Images/slides/1.jpg" alt="" class="im_lg" /></div>
+			</div>
+			<div class="mb_center">
+				<div class="mb_imgs"><img src="./images/Images/slides/4.jpg" alt="" id="main_image" class="im_lg" /> <img src="./images/Images/slides/5.jpg" alt="" class="im_sm" /></div>
+			</div>
+			<div class="mb_right">
+				<div class="mb_imgs"><img src="./images/Images/slides/6.jpg" alt="" class="im_md" /> <img src="./images/Images/slides/7.jpg" alt="" class="im_lg" /></div>
+				<div class="mb_imgs smallNone"><img src="./images/Images/slides/8.jpg" alt="" class="im_md" /> <img src="./images/Images/slides/9.jpg" alt="" class="im_sm" /></div>
+			</div>
+		</div>
 	</div>
-	<div class="column">
-	  ///  Column 2: Put any relevant content here  ///
-   </div>
-   <div class="column">
-	  ///  Column 3: Put any relevant content here  ///
-   </div>
-   <div class="column">
-	  ///  Column 4: Put any relevant content here  ///
-   </div>
-   Next To Animation...
 </div>
-<div
-class="after"
-style="
-    font-size: 4rem;
-    display: grid;
-    place-items: center;
-    background-color: rgb(20, 77, 220);
-    color: white;
-    min-height: 100vh;
-"
->
-<div class="columns">
-<div class="column">
-///  Column 1: Put any relevant content here   ///
+<div class="mb_outter">
+	<p class="mb_otter-h"><img src="images/Images/Champions-of-excellence/COE_text_logo.png" alt="Champions of Excellence Logo" width="583px" height="189px" /></p>
+	<h3 class="mb_otter-p">UAB IT employees are expected to act as champions of excellence in their own work, while also using technology and innovation to help empower excellence among UAB faculty, staff, students and researchers.</h3>
 </div>
-<div class="column">
-///  Column 2: Put any relevant content here  ///
+<div class="after" style="padding-top: 2rem;">
+	<h1>Band of Excellence</h1>
+	<h5>The Band of Excellence is the range of metrics designed to help UAB IT empower the campus community and advance UAB’s mission.</h5>
+	<p>[widgetkit id="14"]</p>
 </div>
-<div class="column">
-///  Column 3: Put any relevant content here  ///
-</div>
-<div class="column">
-///  Column 4: Put any relevant content here  ///
-</div>
-</div>
+<!-- <div class="container">
+	<div class="reveal"><img src="https://images.unsplash.com/photo-1526413232644-8a40f03cc03b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=634&amp;q=80%20634w" alt="" /></div>
+</div> -->
+<script type="text/javascript">
+	document
+		.querySelector(":root")
+		.style.setProperty(
+			"--gridWidthCenter",
+			innerWidth - 100 + "px"
+		);
+	document
+		.querySelector(":root")
+		.style.setProperty(
+			"--gridWidthOther",
+			Math.round(innerWidth * 0.634765625 - 100) + "px"
+		);
+	onresize = () => {
+		document
+			.querySelector(":root")
+			.style.setProperty(
+				"--gridWidthCenter",
+				innerWidth - 100 + "px"
+			);
+		document
+			.querySelector(":root")
+			.style.setProperty(
+				"--gridWidthOther",
+				Math.round(innerWidth * 0.634765625 - 100) + "px"
+			);
+	};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/debug.addIndicators.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/animation.gsap.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/CSSPlugin.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	scrollTo({
+		top: 0,
+		left: 0
+	});
 
-            Next To Animation...
-        </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/debug.addIndicators.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/animation.gsap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/CSSPlugin.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js"></script>
-        <script type="text/javascript">
-            document
-                .querySelector(":root")
-                .style.setProperty(
-                    "--gridWidthCenter",
-                    innerWidth - 100 + "px"
-                );
-            document
-                .querySelector(":root")
-                .style.setProperty(
-                    "--gridWidthOther",
-                    Math.round(innerWidth * 0.634765625 - 100) + "px"
-                );
-            onresize = () => {
-                document
-                    .querySelector(":root")
-                    .style.setProperty(
-                        "--gridWidthCenter",
-                        innerWidth - 100 + "px"
-                    );
-                document
-                    .querySelector(":root")
-                    .style.setProperty(
-                        "--gridWidthOther",
-                        Math.round(innerWidth * 0.634765625 - 100) + "px"
-                    );
-            };
-        </script>
+	// declarations
+	const controller = new ScrollMagic.Controller();
+	let mainImage = document.querySelector('#main_image');
 
-        <script src="./script.js"></script>
+	let centerGrid = Math.round(innerWidth - 100);
+	let otherGrid = Math.round((innerWidth * 0.634765625) - 100);
+
+	// for screen size
+	const onLoadTimeCheck = innerWidth > 1024 ? true : false;
+
+
+
+
+
+
+
+
+	// text animation
+	const textTween = TweenLite.to('#text', 2, {
+		y: -300,
+		autoAlpha: 0,
+		ease: Power0.easeOut
+	});
+
+	// adding text tween to scroll magic
+	new ScrollMagic.Scene({
+			triggerElement: 'body',
+			triggerHook: 0,
+			duration: 300
+		})
+		.setTween(textTween)
+		.addTo(controller);
+
+
+
+
+	function largeScreenImageAnimation() {
+		// image animation
+		let imageTween = TweenLite.fromTo('#main_image', 1, {
+			marginBottom: innerWidth > 1024 ? '61rem' : '8rem',
+			borderRadius: '0',
+			height: `${innerWidth <= 1024 ? innerHeight : (mainImage.offsetWidth) * 1.3}px`,
+			ease: Power0.linear
+		}, {
+			marginBottom: '2rem',
+			borderRadius: '0.6rem',
+			height: `${mainImage.offsetWidth * 1.5}px`,
+		});
+
+		// adding image tween to scroll magic
+		new ScrollMagic.Scene({
+				triggerElement: '.mb_container',
+				triggerHook: 0,
+				duration: 400
+			})
+			.setTween(imageTween)
+			.addTo(controller);
+	}
+	innerWidth > 1024 && largeScreenImageAnimation();
+
+
+
+	function addAnimationToGrid() {
+		let leftGalleryTween = TweenLite.fromTo('.mb_container--row', .5, {
+			gridTemplateColumns: `${otherGrid}px ${innerWidth - (innerWidth <= 500 ? 40 : 80)}px ${otherGrid}px`,
+			ease: Power0.easeNone
+		}, {
+			gridTemplateColumns: `${otherGrid}px ${Math.round(innerWidth / 2)}px ${otherGrid}px`
+		})
+		// adding left gallery tween to scroll magic
+		new ScrollMagic.Scene({
+				triggerElement: '.mb_container',
+				triggerHook: 0,
+				duration: 200
+			})
+			.setTween(leftGalleryTween)
+			.setPin('.mb_container')
+			.addTo(controller);
+
+		let imageHeight = TweenLite.fromTo('#main_image', 1, {
+			height: innerWidth < 600 ? '80vh' : '95vh',
+			borderRadius: '0',
+			ease: Power0.easeNone
+		}, {
+			borderRadius: '0.6rem',
+			height: centerGrid * 1.2 + 'px'
+		});
+		// adding left gallery tween to scroll magic
+		new ScrollMagic.Scene({
+				triggerElement: '.mb_container',
+				triggerHook: 0,
+				duration: 150
+			})
+			.setTween(imageHeight)
+			.setPin('.mb_container')
+			.addTo(controller);
+	}
+	innerWidth <= 1024 && addAnimationToGrid();
+
+
+
+	function equalSizeImage() {
+		let _images = document.querySelectorAll('.im_sm');
+		_images.forEach(im => {
+			im.style.height = (im.offsetWidth * (.5)) + 'px';
+		});
+	}
+
+	function mediumSizeImage() {
+		let _images = document.querySelectorAll('.im_md');
+		_images.forEach(im => {
+			im.style.height = (im.offsetWidth * (innerWidth < 600 ? 1.59 : .8)) + 'px';
+		});
+	}
+
+	function largeSizeImage() {
+		let _images = document.querySelectorAll('.im_lg:not(#main_image)');
+		_images.forEach(im => {
+			im.style.height = (im.offsetWidth * (innerWidth < 600 ? 1.97 : 1.2)) + 'px';
+		});
+	}
+
+
+
+
+	// left gallery animation
+	const leftGalleryTween = TweenLite.from('.mb_left .mb_imgs', 1, {
+		x: -300,
+		autoAlpha: 0,
+		ease: Power0.ease
+	});
+	// adding left gallery tween to scroll magic
+	const scene2 = new ScrollMagic.Scene({
+			triggerElement: 'mb_left',
+			triggerHook: 0.2,
+			duration: innerWidth > 1024 ? 400 : 100
+		})
+		.setTween(leftGalleryTween)
+		.addTo(controller);
+
+	// right gallery animation
+	const rightGalleryTween = TweenLite.from('.mb_right .mb_imgs', 1, {
+		x: 300,
+		autoAlpha: 0,
+		ease: Power0.ease
+	});
+	// adding right gallery tween to scroll magic
+	const scene3 = new ScrollMagic.Scene({
+			triggerElement: 'mb_right',
+			triggerHook: 0.2,
+			duration: innerWidth > 1024 ? 400 : 100
+		})
+		.setTween(rightGalleryTween)
+		.addTo(controller);
+
+	/* reveal boxes
+	let revealContainers = document.querySelectorAll(".reveal");
+
+	revealContainers.forEach((container) => {
+		let image = container.querySelector("img");
+		let tl = gsap.timeline({
+			scrollTrigger: {
+				trigger: container,
+				toggleActions: "restart none none reset"
+			}
+		});
+
+		tl.set(container, {
+			autoAlpha: 1
+		});
+		tl.from(container, 1.5, {
+			yPercent: 100,
+			ease: Power2.out
+		});
+		tl.from(image, 1.5, {
+			yPercent: -100,
+			delay: -1.5,
+			ease: Power2.out
+		});
+	}); */
+
+
+
+
+
+	equalSizeImage();
+	mediumSizeImage()
+	largeSizeImage();
+
+	onresize = function() {
+		equalSizeImage();
+		mediumSizeImage()
+		largeSizeImage();
+		centerGrid = Math.round(innerWidth - 100);
+		otherGrid = Math.round((innerWidth * 0.634765625) - 100);
+
+		if (onLoadTimeCheck !== (innerWidth > 1024)) {
+			window.location.reload();
+		}
+	}
+</script>
