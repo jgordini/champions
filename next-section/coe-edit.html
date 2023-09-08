@@ -208,6 +208,9 @@
 		object-position: top;
 		/*margin-bottom: 56rem;*/
 	}
+	#main_header {
+		object-position: top;
+	}
 
 	#onsmall {
 		display: none;
@@ -305,39 +308,36 @@
 		margin-top: 12px;
 	}
 
-	.container {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		height: 100vh;
-		width: 100%;
-		position: relative;
-	}
-
-	.reveal img {
-		height: 100%;
-		width: 100%;
-		object-fit: cover;
-		transform-origin: left;
-	}
-
-	.reveal {
-		visibility: hidden;
-		position: relative;
-		width: 80%;
-		height: 80%;
-		max-width: 500px;
+	.inner_img {
+		width: 50%;
+		margin: 8rem auto;
 		overflow: hidden;
+	}
+
+	.inner_img>.img {
+		width: 100%;
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+
+		&::before {
+			content: '';
+			display: block;
+			padding-top: 56.25%; // 16/9
+		}
 	}
 </style>
 <div id="root">
+	<section id="main_header" class="section has-background-full">
+		<h1 class="mb_heading">Agents of Innovation and 100 Wins</h1>
+		<h2 class="mb_text">Any project that improves the work or academic lives of faculty, staff or students in large and small ways and makes us agents of innovation. 100 wins is our goal for the year.</h2>
+	</section>
 	<div class="mb_container">
 		<div class="mb_container--row">
 			<div class="mb_left">
 				<div id="text" class="mb_description">
-					<p class="mb_heading"><img src="images/Images/Champions-of-excellence/COE_text_logo.png" alt="Champions of Excellence Logo" width="583px" height="189px" /></p>
-					<h3 class="mb_text">UAB IT employees are expected to act as champions of excellence in their own work, while also using technology and innovation to help empower excellence among UAB faculty, staff, students and researchers.</h3>
+					<h1 class="mb_heading">Agents of Innovation and 100 Wins</h1>
+					<h2 class="mb_text">Any project that improves the work or academic lives of faculty, staff or students in large and small ways and makes us agents of innovation. 100 wins is our goal for the year.</h2>
 				</div>
 				<div class="mb_imgs smallNone"><img src="./images/Images/slides/3.jpg" alt="" class="im_lg" /> <img src="./images/Images/slides/2.jpg" alt="" class="im_sm" /></div>
 				<div class="mb_imgs"><img src="./images/Images/slides/1.jpg" alt="" id="onsmall" class="im_md" /> <img src="./images/Images/slides/1.jpg" alt="" class="im_lg" /></div>
@@ -354,16 +354,24 @@
 </div>
 <div class="mb_outter">
 	<p class="mb_otter-h"><img src="images/Images/Champions-of-excellence/COE_text_logo.png" alt="Champions of Excellence Logo" width="583px" height="189px" /></p>
-	<h3 class="mb_otter-p">UAB IT employees are expected to act as champions of excellence in their own work, while also using technology and innovation to help empower excellence among UAB faculty, staff, students and researchers.</h3>
+	<h2 class="mb_otter-p">UAB IT employees are expected to act as champions of excellence in their own work, while also using technology and innovation to help empower excellence among UAB faculty, staff, students and researchers.</h2>
 </div>
 <div class="after" style="padding-top: 2rem;">
 	<h1>Band of Excellence</h1>
-	<h5>The Band of Excellence is the range of metrics designed to help UAB IT empower the campus community and advance UAB’s mission.</h5>
-	<p>[widgetkit id="14"]</p>
+	<h2>The Band of Excellence is the range of metrics designed to help UAB IT empower the campus community and advance UAB’s mission.</h2>
+	<div class="inner_img">
+		<div class="img">[widgetkit id="15"]</div>
+	</div>
+	<div class="inner_img">
+		<div class="img"><img src="https://images.unsplash.com/photo-1546964143-15abb18ec50d?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80" alt="" /></div>
+	</div>
+	<div class="inner_img">
+		<div class="img"><img src="https://images.unsplash.com/photo-1546964143-15abb18ec50d?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80" alt="" /></div>
+	</div>
+	<div class="inner_img">
+		<div class="img"><img src="https://images.unsplash.com/photo-1546964143-15abb18ec50d?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80" alt="" /></div>
+	</div>
 </div>
-<!-- <div class="container">
-	<div class="reveal"><img src="https://images.unsplash.com/photo-1526413232644-8a40f03cc03b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=634&amp;q=80%20634w" alt="" /></div>
-</div> -->
 <script type="text/javascript">
 	document
 		.querySelector(":root")
@@ -396,7 +404,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/debug.addIndicators.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/animation.gsap.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/CSSPlugin.min.js" type="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	scrollTo({
 		top: 0,
@@ -407,19 +415,12 @@
 	// declarations
 	const controller = new ScrollMagic.Controller();
 	let mainImage = document.querySelector('#main_image');
-
+	let headerImage = document.querySelector('#main_header');
 	let centerGrid = Math.round(innerWidth - 100);
 	let otherGrid = Math.round((innerWidth * 0.634765625) - 100);
 
 	// for screen size
 	const onLoadTimeCheck = innerWidth > 1024 ? true : false;
-
-
-
-
-
-
-
 
 	// text animation
 	const textTween = TweenLite.to('#text', 2, {
@@ -559,39 +560,61 @@
 		.setTween(rightGalleryTween)
 		.addTo(controller);
 
-	/* reveal boxes
-	let revealContainers = document.querySelectorAll(".reveal");
 
-	revealContainers.forEach((container) => {
-		let image = container.querySelector("img");
-		let tl = gsap.timeline({
-			scrollTrigger: {
-				trigger: container,
-				toggleActions: "restart none none reset"
-			}
+	// each image
+	[].forEach.call(document.querySelectorAll('.inner_img'), function(e) {
+
+		// gsap timeline
+		let tl = new TimelineMax();
+		tl.from(e, 1, {
+			xPercent: -100,
+			ease: Expo.easeInOut
+		}, 0);
+		tl.from(e.querySelector('.img'), 1, {
+			xPercent: 100,
+			ease: Expo.easeInOut
+		}, 0);
+
+		// scrollmagic scene
+		const scene4 = new ScrollMagic.Scene({
+				triggerElement: e,
+				triggerHook: .6
+			})
+			.setTween(tl)
+			.addTo(controller);
+
+	});
+
+	function headerImageAnimation() {
+		// image animation
+		let imageTween = TweenLite.fromTo('#main_header', 1, {
+			marginBottom: innerWidth > 1024 ? '61rem' : '8rem',
+			borderRadius: '0',
+			height: `${innerWidth <= 1024 ? innerHeight : (headerImage.offsetWidth) * 1.3}px`,
+			ease: Power0.linear
+		}, {
+			marginBottom: '2rem',
+			borderRadius: '0.6rem',
+			height: `${headerImage.offsetWidth * 1.5}px`,
 		});
 
-		tl.set(container, {
-			autoAlpha: 1
-		});
-		tl.from(container, 1.5, {
-			yPercent: 100,
-			ease: Power2.out
-		});
-		tl.from(image, 1.5, {
-			yPercent: -100,
-			delay: -1.5,
-			ease: Power2.out
-		});
-	}); */
+		// adding image tween to scroll magic
+		new ScrollMagic.Scene({
+				triggerElement: '.section',
+				triggerHook: 0,
+				duration: 400
+			})
+			.setTween(imageTween)
+			.addTo(controller);
+	}
+	innerWidth > 1024 && largeScreenImageAnimation();
 
-
-
-
+	// GSAP 
 
 	equalSizeImage();
-	mediumSizeImage()
+	mediumSizeImage();
 	largeSizeImage();
+	headerImageAnimation();
 
 	onresize = function() {
 		equalSizeImage();
